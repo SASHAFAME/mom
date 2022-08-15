@@ -123,7 +123,7 @@ function getSlideNext() {
     if (next > 20) {
         bgNum = '01'
     }
-
+    console.log(bgNum)
     setBg()
 }
 slideNext.addEventListener('click', getSlideNext)
@@ -136,7 +136,7 @@ function getSlidePrev() {
     if (next < 1) {
         bgNum = '20'
     }
-
+    console.log(bgNum)
     setBg()
 }
 slidePrev.addEventListener('click', getSlidePrev)
@@ -150,12 +150,15 @@ async function getWeather() {
     const res = await fetch(url);
     const data = await res.json();
 
+    console.log(data)
+
     weatherIcon.className = 'weather-icon owf';
     weatherIcon.classList.add(`owf-${data.weather[0].id}`)
-    temperature.textContent = `${data.main.temp} °C`
+    temperature.textContent = `${Math.round(data.main.temp)} °C`
     weatherDescription.textContent = data.weather[0].description;
+    wind.textContent = `Скорость ветра: ${Math.round(data.wind.speed)} м/с`;
 }
-getWeather()
+
 
 let weatherCity = document.querySelector('.city')
 function setWeatherLocalStorage() {
@@ -167,6 +170,7 @@ window.addEventListener('beforeunload', setWeatherLocalStorage)
 function getWeatherLocalStorage() {
     if(localStorage.getItem('weather')) {
         weatherCity.value = localStorage.getItem('weather');
+        getWeather()
     }
 }
 window.addEventListener('load', getWeatherLocalStorage)
@@ -174,7 +178,7 @@ window.addEventListener('load', getWeatherLocalStorage)
 const weatherIcon = document.querySelector('.weather-icon');
 const temperature = document.querySelector('.temperature');
 const weatherDescription = document.querySelector('.weather-description');
-
+const wind = document.querySelector('.wind')
 
 
 city.addEventListener('change', getWeather)
