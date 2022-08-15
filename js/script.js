@@ -264,7 +264,7 @@ let playNum = 0
 function playNextSound() {
     playNum = playNum+1
     if (playNum > 5) {
-        playNum = 5
+        playNum = 0
     }
     audio.src = playList[playNum].src;
     console.log(playNum)
@@ -281,7 +281,7 @@ function playNextSound() {
 function playPrevSound() {
     playNum = playNum-1
     if (playNum < 0) {
-        playNum = 0
+        playNum = 5
     }
     audio.src = playList[playNum].src;
     console.log(playNum)
@@ -302,15 +302,15 @@ import playList from './playList.js';
 console.log(playList);
 
 
-// const li = document.createElement('li');
-// const playListUl = document.querySelector('.play-list')
-// li.classList.add('play-item')
+const li = document.createElement('li');
+const playListUl = document.querySelector('.play-list')
+li.classList.add('play-item')
 
-// async function playListFunc() {
-//     const listAudio = 'playList.js'
-//     const res = fetch(listAudio)
-//     const data = await res.json()
-//     playListUl.textContent = data[playNum].title;
-// }
-// playListFunc()
+async function playListFunc() {
+    const listAudio = 'playList.js'
+    const res = fetch(listAudio)
+    const data = await res.json()
+    playListUl.textContent = data[playNum].title;
+}
+playListFunc()
 // AUDIO END
