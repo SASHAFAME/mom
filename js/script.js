@@ -311,6 +311,7 @@ async function playListFunc() {
     const res = fetch(listAudio)
     const data = await res.json()
     playListUl.textContent = data[playNum].title;
+
 }
 playListFunc()
 // AUDIO END
