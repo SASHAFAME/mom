@@ -146,17 +146,29 @@ slidePrev.addEventListener('click', getSlidePrev)
 // WEATHER START
 const city = document.querySelector('.city');
 async function getWeather() {
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=ru&appid=f35bea9bca3e8ae10cf9816c3942ee16&units=metric`
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=en&appid=f35bea9bca3e8ae10cf9816c3942ee16&units=metric`
     const res = await fetch(url);
     const data = await res.json();
 
-    console.log(data)
+    console.log(res)
+    if (res.ok == false) {
+        weatherDescription.textContent = 'City not found';
+        temperature.textContent = ``
+        wind.textContent = ``;
+        humidity.textContent = ``
+    }
+
 
     weatherIcon.className = 'weather-icon owf';
     weatherIcon.classList.add(`owf-${data.weather[0].id}`)
+    
     temperature.textContent = `${Math.round(data.main.temp)} °C`
-    weatherDescription.textContent = data.weather[0].description;
-    wind.textContent = `Скорость ветра: ${Math.round(data.wind.speed)} м/с`;
+    weatherDescription.textContent = `${data.weather[0].description}`;
+    wind.textContent = `Speed: ${Math.round(data.wind.speed)} m/s`;
+    humidity.textContent = `Relative humidity: ${data.main.humidity}%`
+
+
+
 }
 
 
@@ -179,6 +191,7 @@ const weatherIcon = document.querySelector('.weather-icon');
 const temperature = document.querySelector('.temperature');
 const weatherDescription = document.querySelector('.weather-description');
 const wind = document.querySelector('.wind')
+const humidity = document.querySelector('.humidity')
 
 
 city.addEventListener('change', getWeather)
