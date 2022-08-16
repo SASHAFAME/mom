@@ -150,7 +150,7 @@ async function getWeather() {
     const res = await fetch(url);
     const data = await res.json();
 
-    console.log(res)
+
     if (res.ok == false) {
         weatherDescription.textContent = 'City not found';
         temperature.textContent = ``
@@ -239,6 +239,60 @@ const playPrev = document.querySelector('.play-prev')
 const playNext = document.querySelector('.play-next')
 const play = document.querySelector('.play')
 
+
+
+
+
+import playList from './playList.js';
+console.log(playList);
+
+const playListContainer = document.querySelector('.play-list')
+
+playList.forEach(el => {
+    const item = document.createElement('li')
+    item.classList.add('play-item')
+    item.textContent = el.title
+
+    playListContainer.append(item)
+})
+
+const playerItem = document.querySelectorAll('.play-item')
+let playNum = 0
+
+playerItem[0].addEventListener('click', function() {
+
+    playNum = 0
+    audio.src = playList[playNum].src;
+    playAudio()
+})
+playerItem[1].addEventListener('click', function() {
+    playNum = 1
+    audio.src = playList[playNum].src;
+    playAudio()
+})
+playerItem[2].addEventListener('click', function() {
+    playNum = 2
+    audio.src = playList[playNum].src;
+    playAudio()
+})
+playerItem[3].addEventListener('click', function() {
+    playNum = 3
+    audio.src = playList[playNum].src;
+    playAudio()
+})
+playerItem[4].addEventListener('click', function() {
+    playNum = 4
+    audio.src = playList[playNum].src;
+    playAudio()
+})
+playerItem[5].addEventListener('click', function() {
+    playNum = 5
+    audio.src = playList[playNum].src;
+    playAudio()
+})
+
+
+
 function playAudio() {
 
     if (isPlay === false) {
@@ -253,13 +307,14 @@ function playAudio() {
     isPlay = false;
     play.classList.remove('pause')
 
+
     console.log(isPlay)
 
 }}
 
 play.addEventListener('click', playAudio)
 
-let playNum = 0
+
 
 function playNextSound() {
     playNum = playNum+1
@@ -298,20 +353,4 @@ function playPrevSound() {
 playNext.addEventListener('click', playNextSound)
 playPrev.addEventListener('click', playPrevSound)
 
-import playList from './playList.js';
-console.log(playList);
-
-
-const li = document.createElement('li');
-const playListUl = document.querySelector('.play-list')
-li.classList.add('play-item')
-
-async function playListFunc() {
-    const listAudio = 'playList.js'
-    const res = fetch(listAudio)
-    const data = await res.json()
-    playListUl.textContent = data[playNum].title;
-
-}
-playListFunc()
 // AUDIO END
